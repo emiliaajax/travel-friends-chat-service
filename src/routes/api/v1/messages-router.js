@@ -12,4 +12,8 @@ export const router = express.Router()
 
 const controller = new MessagesController()
 
+router.param('id', (req, res, next, id) => controller.loadMessages(req, res, next, id))
+
 router.post('/', (req, res, next) => controller.create(req, res, next))
+
+router.get('/:id', (req, res, next) => controller.find(req, res, next))

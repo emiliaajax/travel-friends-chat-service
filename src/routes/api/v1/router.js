@@ -16,4 +16,4 @@ router.get('/', (req, res) => res.json({
 }))
 
 router.use('/', conversationsRouter)
-router.use('/message', messagesRouter)
+router.use('/messages', messagesRouter)

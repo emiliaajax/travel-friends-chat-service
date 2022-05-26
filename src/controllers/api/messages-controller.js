@@ -20,7 +20,7 @@ export class MessagesController {
    * @param {object} next Express next function middleware.
    * @param {string} id The value of the id.
    */
-  async loadConversations (req, res, next, id) {
+  async loadMessages (req, res, next, id) {
     try {
       const messages = await Message.find({
         conversationId: id
