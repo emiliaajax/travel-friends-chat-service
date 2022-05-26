@@ -11,3 +11,5 @@ import { MessagesController } from '../../../controllers/api/messages-controller
 export const router = express.Router()
 
 const controller = new MessagesController()
+
+router.post('/', (req, res, next) => controller.create(req, res, next))
