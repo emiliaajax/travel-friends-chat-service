@@ -21,7 +21,6 @@ const schema = new mongoose.Schema({
      * @param {object} ret The plain object response which has been converted.
      */
     transform: function (doc, ret) {
-      delete ret._id
       delete ret.__v
     }
   },
