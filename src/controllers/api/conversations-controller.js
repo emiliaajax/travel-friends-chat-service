@@ -60,18 +60,19 @@ export class ConversationsController {
    */
   async create (req, res, next) {
     try {
-      const conversation = new Conversation({
-        members: [req.body.senderId, req.body.receiverId]
+      let conversation = await Conversation.find({
+        members: { $all: [req.body.senderId, req.body.receiverId] }
       })
 
-      await conversation.save()
+      if (conversation.length === 0) {
+        conversation = new Conversation({
+          members: [req.body.senderId, req.body.receiverId]
+        })
 
-      const location = new URL(
-        `${req.protocol}://${req.get('host')}${req.baseUrl}/${conversation._id}`
-      )
+        await conversation.save()
+      }
 
       res
-        .location(location.href)
         .status(201)
         .json(conversation)
     } catch (error) {
