@@ -13,6 +13,21 @@ import createError from 'http-errors'
  */
 export class ConversationsController {
   /**
+   * Authorizes the user.
+   *
+   * @param {object} req Express request object.
+   * @param {object} res Express response object.
+   * @param {Function} next Express next middleware function.
+   * @returns {Function} Express next middleware function.
+   */
+  async authorize (req, res, next) {
+    if (req.user.profileId !== req.params.id) {
+      next(createError(403))
+    }
+    next()
+  }
+
+  /**
    * Provides req.conversations to the routes if id is present.
    *
    * @param {object} req Express request object.
