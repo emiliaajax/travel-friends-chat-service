@@ -13,6 +13,23 @@ import createError from 'http-errors'
  */
 export class MessagesController {
   /**
+   * Authorizes the user.
+   *
+   * @param {object} req Express request object.
+   * @param {object} res Express response object.
+   * @param {Function} next Express next middleware function.
+   * @returns {Function} Express next middleware function.
+   */
+  async authorize (req, res, next) {
+    for (const message of req.messages) {
+      if ((req.user.profileId !== message.sender) && (req.user.profileId !== message.receiver)) {
+        next(createError(403))
+      }
+    }
+    next()
+  }
+
+  /**
    * Provides req.messages to the routes if id is present.
    *
    * @param {object} req Express request object.
